@@ -1,8 +1,8 @@
 import { Fragment, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { XMarkIcon, ExclamationTriangleIcon, CheckCircleIcon, SparklesIcon } from '@heroicons/react/24/outline';
+import { XMarkIcon, ExclamationTriangleIcon, CheckCircleIcon, SparklesIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 
-const Popup = ({ isOpen, onClose, type = 'error', title, message }) => {
+const Popup = ({ isOpen, onClose, type = 'error', title, message, onConfirm }) => {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -23,6 +23,14 @@ const Popup = ({ isOpen, onClose, type = 'error', title, message }) => {
         </div>
       );
     }
+    if (type === 'confirmation') {
+      return (
+        <div className="relative">
+          <div className="absolute inset-0 bg-yellow-400 rounded-full animate-ping opacity-20"></div>
+          <QuestionMarkCircleIcon className="h-8 w-8 text-yellow-400 relative z-10" />
+        </div>
+      );
+    }
     return (
       <div className="relative">
         <div className="absolute inset-0 bg-red-400 rounded-full animate-ping opacity-20"></div>
@@ -32,15 +40,15 @@ const Popup = ({ isOpen, onClose, type = 'error', title, message }) => {
   };
 
   const getBackgroundGradient = () => {
-    return type === 'success' 
-      ? 'from-emerald-500/20 via-teal-500/20 to-cyan-500/20' 
-      : 'from-red-500/20 via-pink-500/20 to-rose-500/20';
+    if (type === 'success') return 'from-emerald-500/20 via-teal-500/20 to-cyan-500/20';
+    if (type === 'confirmation') return 'from-yellow-500/20 via-amber-500/20 to-orange-500/20';
+    return 'from-red-500/20 via-pink-500/20 to-rose-500/20';
   };
 
   const getBorderGradient = () => {
-    return type === 'success'
-      ? 'from-emerald-400 via-teal-400 to-cyan-400'
-      : 'from-red-400 via-pink-400 to-rose-400';
+    if (type === 'success') return 'from-emerald-400 via-teal-400 to-cyan-400';
+    if (type === 'confirmation') return 'from-yellow-400 via-amber-400 to-orange-400';
+    return 'from-red-400 via-pink-400 to-rose-400';
   };
 
   const getButtonGradient = () => {
@@ -111,15 +119,37 @@ const Popup = ({ isOpen, onClose, type = 'error', title, message }) => {
                   </div>
 
                   {/* Action button */}
-                  <div className="mt-6 flex justify-end">
-                    <button
-                      type="button"
-                      className={`inline-flex items-center px-6 py-3 rounded-xl text-sm font-semibold text-white shadow-lg transition-all duration-200 bg-gradient-to-r ${getButtonGradient()} transform hover:scale-105 active:scale-95`}
-                      onClick={onClose}
-                    >
-                      <SparklesIcon className="h-4 w-4 mr-2" />
-                      Got it!
-                    </button>
+                  <div className="mt-6 flex justify-end space-x-3">
+                    {type === 'confirmation' ? (
+                      <>
+                        <button
+                          type="button"
+                          className="inline-flex items-center px-6 py-3 rounded-xl text-sm font-semibold text-gray-700 bg-gray-200 hover:bg-gray-300 transition-all duration-200 transform hover:scale-105 active:scale-95"
+                          onClick={onClose}
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          type="button"
+                          className="inline-flex items-center px-6 py-3 rounded-xl text-sm font-semibold text-white shadow-lg transition-all duration-200 bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 transform hover:scale-105 active:scale-95"
+                          onClick={() => {
+                            onConfirm();
+                            onClose();
+                          }}
+                        >
+                          Confirm
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        type="button"
+                        className={`inline-flex items-center px-6 py-3 rounded-xl text-sm font-semibold text-white shadow-lg transition-all duration-200 bg-gradient-to-r ${getButtonGradient()} transform hover:scale-105 active:scale-95`}
+                        onClick={onClose}
+                      >
+                        <SparklesIcon className="h-4 w-4 mr-2" />
+                        Got it!
+                      </button>
+                    )}
                   </div>
                 </div>
               </Dialog.Panel>

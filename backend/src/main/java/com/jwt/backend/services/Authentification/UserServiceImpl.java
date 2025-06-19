@@ -1,4 +1,4 @@
-package com.jwt.backend.services;
+package com.jwt.backend.services.Authentification;
 
 import com.jwt.backend.dtos.CredentialsDto;
 import com.jwt.backend.dtos.SignUpDto;
@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public class UserService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
@@ -25,6 +25,7 @@ public class UserService {
 
     private final UserMapper userMapper;
 
+    @Override
     public UserDto login(CredentialsDto credentialsDto) {
         User user = userRepository.findByLogin(credentialsDto.login())
                 .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
@@ -35,6 +36,7 @@ public class UserService {
         throw new AppException("Invalid password", HttpStatus.BAD_REQUEST);
     }
 
+    @Override
     public UserDto register(SignUpDto userDto) {
         Optional<User> optionalUser = userRepository.findByLogin(userDto.login());
 
@@ -50,6 +52,7 @@ public class UserService {
         return userMapper.toUserDto(savedUser);
     }
 
+    @Override
     public UserDto findByLogin(String login) {
         User user = userRepository.findByLogin(login)
                 .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));

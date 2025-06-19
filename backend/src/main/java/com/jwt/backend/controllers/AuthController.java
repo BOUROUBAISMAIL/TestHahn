@@ -1,6 +1,6 @@
 package com.jwt.backend.controllers;
 
-import com.jwt.backend.services.UserService;
+import com.jwt.backend.services.Authentification.UserServiceImpl;
 import com.jwt.backend.config.UserAuthenticationProvider;
 import com.jwt.backend.dtos.CredentialsDto;
 import com.jwt.backend.dtos.SignUpDto;
@@ -19,7 +19,7 @@ import java.net.URI;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
     private final UserAuthenticationProvider userAuthenticationProvider;
 
     @PostMapping("/login")

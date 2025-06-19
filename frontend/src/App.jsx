@@ -3,7 +3,8 @@ import { AuthProvider } from './pages/context/AuthContext.jsx';
 import LoginPage from './pages/login/index.jsx';
 import RegisterPage from './pages/components/RegisterPage.jsx';
 import DashboardPage from './pages/components/DashboardPage.jsx';
-import ProtectedRoute from '../src/components/ProtectedRoute.jsx';
+import StudentForm from './components/StudentForm.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
 
 function App() {
   return (
@@ -18,6 +19,22 @@ function App() {
               element={
                 <ProtectedRoute>
                   <DashboardPage />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/students/new" 
+              element={
+                <ProtectedRoute>
+                  <StudentForm />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/students/:id/edit" 
+              element={
+                <ProtectedRoute>
+                  <StudentForm />
                 </ProtectedRoute>
               } 
             />
