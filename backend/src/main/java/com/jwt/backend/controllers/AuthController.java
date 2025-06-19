@@ -8,21 +8,20 @@ import com.jwt.backend.dtos.UserDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
-@RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 @RestController
+@RequestMapping("/auth")
+
+@RequiredArgsConstructor
 public class AuthController {
 
     private final UserService userService;
     private final UserAuthenticationProvider userAuthenticationProvider;
 
-    @CrossOrigin(origins = "*")
     @PostMapping("/login")
     public ResponseEntity<UserDto> login(@RequestBody @Valid CredentialsDto credentialsDto) {
         UserDto userDto = userService.login(credentialsDto);
@@ -30,7 +29,6 @@ public class AuthController {
         return ResponseEntity.ok(userDto);
     }
 
-    @CrossOrigin(origins = "*")
     @PostMapping("/register")
     public ResponseEntity<UserDto> register(@RequestBody @Valid SignUpDto user) {
         UserDto createdUser = userService.register(user);

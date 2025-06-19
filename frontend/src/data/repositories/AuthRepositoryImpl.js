@@ -1,6 +1,6 @@
 import { createUser } from '../../domain/entities/User.js';
-import { createApiClient } from '../../infrastructure/api/ApiClient.js';
-import { setToken, setUser, getUser, clear } from '../../infrastructure/storage/SessionStorage.js';
+import { createApiClient } from '../../core/api/ApiClient.js';
+import { setToken, setUser, getUser, clear } from '../../core/storage/SessionStorage.js';
 
 export const createAuthRepositoryImpl = () => {
   const apiClient = createApiClient();
