@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-export const createApiClient = (baseURL = 'http://localhost:8081/auth') => {
+
+
+const APIurl =  import.meta.env.VITE_APP_API_AUTH_URL;
+
+export const createApiClient = (baseURL = APIurl) => {
   const client = axios.create({
     baseURL,
     headers: {
@@ -8,7 +12,6 @@ export const createApiClient = (baseURL = 'http://localhost:8081/auth') => {
     },
   });
 
-  // Add request interceptor to include token
   client.interceptors.request.use(
     (config) => {
       const token = sessionStorage.getItem('token');
@@ -22,7 +25,6 @@ export const createApiClient = (baseURL = 'http://localhost:8081/auth') => {
     }
   );
 
-  // Add response interceptor to handle errors
   client.interceptors.response.use(
     (response) => response,
     (error) => {

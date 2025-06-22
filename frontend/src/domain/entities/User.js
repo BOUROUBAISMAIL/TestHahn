@@ -1,4 +1,3 @@
-// User entity as a function-based module
 export const createUser = (id, firstName, lastName, login, token = null) => ({
   id,
   firstName,
@@ -13,7 +12,6 @@ export const createUser = (id, firstName, lastName, login, token = null) => ({
   }
 });
 
-// Utility functions for User
 export const getUserFullName = (user) => `${user.firstName} ${user.lastName}`;
 
 export const isUserAuthenticated = (user) => !!user.token; 

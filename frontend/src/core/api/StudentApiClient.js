@@ -1,17 +1,19 @@
-import axios from 'axios';
+import axios from "axios";
 
-export const createStudentApiClient = (baseURL = 'http://localhost:8081/api/students') => {
+const APIurl =  import.meta.env.VITE_APP_API_STUDENT_URL;
+
+export const createStudentApiClient = (baseURL = APIurl) => {
   const client = axios.create({
     baseURL,
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   });
 
   // Add request interceptor to include token
   client.interceptors.request.use(
     (config) => {
-      const token = sessionStorage.getItem('token');
+      const token = sessionStorage.getItem("token");
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
@@ -27,9 +29,9 @@ export const createStudentApiClient = (baseURL = 'http://localhost:8081/api/stud
     (response) => response,
     (error) => {
       if (error.response?.status === 401) {
-        sessionStorage.removeItem('token');
-        sessionStorage.removeItem('user');
-        window.location.href = '/login';
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("user");
+        window.location.href = "/login";
       }
       return Promise.reject(error);
     }
@@ -37,7 +39,7 @@ export const createStudentApiClient = (baseURL = 'http://localhost:8081/api/stud
 
   const getAll = async () => {
     try {
-      const response = await client.get('');
+      const response = await client.get("");
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || error.message);
@@ -55,7 +57,7 @@ export const createStudentApiClient = (baseURL = 'http://localhost:8081/api/stud
 
   const create = async (student) => {
     try {
-      const response = await client.post('', student);
+      const response = await client.post("", student);
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || error.message);
@@ -85,6 +87,6 @@ export const createStudentApiClient = (baseURL = 'http://localhost:8081/api/stud
     getById,
     create,
     update,
-    remove
+    remove,
   };
-}; 
+};

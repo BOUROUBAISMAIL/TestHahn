@@ -1,7 +1,6 @@
 import { User } from '../entities/User.js';
 import { AuthCredentials, RegisterCredentials } from '../entities/AuthCredentials.js';
 
-// AuthRepository interface as function-based module
 export const createAuthRepository = () => {
   const login = async (credentials) => {
     throw new Error('login method must be implemented');

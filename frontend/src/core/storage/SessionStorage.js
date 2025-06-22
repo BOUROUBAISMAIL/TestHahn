@@ -1,4 +1,3 @@
-// SessionStorage as function-based utility module
 export const setToken = (token) => {
   sessionStorage.setItem('token', token);
 };

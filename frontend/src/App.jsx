@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './pages/context/AuthContext.jsx';
 import LoginPage from './pages/login/index.jsx';
-import RegisterPage from './pages/components/RegisterPage.jsx';
-import DashboardPage from './pages/components/DashboardPage.jsx';
 import StudentForm from './components/StudentForm.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
+import RegisterPage from './pages/register/index.jsx';
+import { AuthProvider } from './pages/components/context/AuthContext.jsx';
+import DashboardPage from './pages/dashboard/index.jsx';
 
 function App() {
   return (

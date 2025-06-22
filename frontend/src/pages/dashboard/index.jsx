@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useAuth } from '../hooks/useAuth.js';
 import { useNavigate } from 'react-router-dom';
 import { 
   ArrowRightOnRectangleIcon, 
@@ -11,7 +10,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { createStudentApiClient } from '../../core/api/StudentApiClient.js';
 import Popup from '../../components/Popup.jsx';
-
+import { useAuth } from '../components/hooks/useAuth.js';
 const DashboardPage = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -98,14 +97,11 @@ const DashboardPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
-      {/* Animated background elements */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute top-0 right-0 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
       </div>
-
-      {/* Floating particles */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(30)].map((_, i) => (
           <div
@@ -122,40 +118,31 @@ const DashboardPage = () => {
       </div>
 
       <div className="relative z-10">
-        {/* Header */}
         <header className="bg-white/5 backdrop-blur-xl border-b border-white/10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center py-6">
               <div className="flex items-center space-x-4">
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-lg opacity-50 animate-pulse"></div>
-                  <div className="relative bg-gradient-to-r from-purple-500 to-pink-500 rounded-full p-3 shadow-lg">
-                    <SparklesIcon className="h-8 w-8 text-white" />
-                  </div>
+                
                 </div>
                 <div>
                   <h1 className="text-2xl font-bold text-white">Student Management</h1>
-                  <p className="text-purple-200 text-sm">Manage your students</p>
                 </div>
               </div>
               
               <div className="flex items-center space-x-4">
-                {/* Notifications */}
                
-
-                {/* User menu */}
                 <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 p-3">
                   <div className="relative">
                     <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur opacity-50"></div>
-                    <UserCircleIcon className="h-8 w-8 text-white relative z-10" />
+                    <UserCircleIcon className="h-6 w-8 text-white relative z-10" />
                   </div>
                   <div className="text-left">
                     <p className="text-white font-medium text-sm">{user.fullName}</p>
                     <p className="text-purple-200 text-xs">{user.login}</p>
                   </div>
                 </div>
-
-                {/* Logout button */}
                 <button
                   onClick={handleLogout}
                   className="relative group p-3 bg-gradient-to-r from-red-500 to-pink-500 rounded-xl text-white hover:from-red-600 hover:to-pink-600 transition-all duration-200 transform hover:scale-105 active:scale-95"
@@ -166,8 +153,6 @@ const DashboardPage = () => {
             </div>
           </div>
         </header>
-
-        {/* Main Content */}
         <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
           <div className="relative group mb-8">
             <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 rounded-3xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
@@ -203,7 +188,7 @@ const DashboardPage = () => {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-white/10">
-                      {students.map((student) => (
+                      {students?.map((student) => (
                         <tr key={student.id} className="hover:bg-white/5 transition-colors duration-200">
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-white">{student.firstName} {student.lastName}</div>

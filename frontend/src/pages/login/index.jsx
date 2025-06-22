@@ -1,14 +1,17 @@
-import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { EyeIcon, EyeSlashIcon, SparklesIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
-import { useAuth } from '../hooks/useAuth.js';
-import Popup from '../../components/Popup.jsx';
-import { TEInput, TERipple } from "tw-elements-react";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  EyeIcon,
+  EyeSlashIcon,
+  ArrowRightIcon,
+} from "@heroicons/react/24/outline";
+import Popup from "../../components/Popup.jsx";
+import { useAuth } from "../components/hooks/useAuth.js";
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
-    login: '',
-    password: '',
+    login: "",
+    password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -20,58 +23,47 @@ const LoginPage = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!formData.login || !formData.password) {
       setPopupData({
-        type: 'error',
-        title: 'Validation Error',
-        message: 'Please fill in all fields.'
+        type: "error",
+        title: "Validation Error",
+        message: "Please fill in all fields.",
       });
       setShowPopup(true);
       return;
     }
 
     const result = await login(formData.login, formData.password);
-    
+
     if (result.success) {
-      setPopupData({
-        type: 'success',
-        title: 'Login Successful',
-        message: 'Welcome back! Redirecting to dashboard...'
-      });
-      setShowPopup(true);
-      setTimeout(() => {
-        navigate('/dashboard');
-      }, 1500);
+      navigate("/dashboard");
     } else {
       setPopupData({
-        type: 'error',
-        title: 'Login Failed',
-        message: result.error || 'An error occurred during login.'
+        type: "error",
+        title: "Login Failed",
+        message: "An error occurred during login.",
       });
       setShowPopup(true);
     }
   };
 
   return (
-   
     <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      {/* Animated background elements */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute top-3/4 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
         <div className="absolute bottom-1/4 left-1/3 w-64 h-64 bg-pink-500/20 rounded-full blur-3xl animate-pulse delay-2000"></div>
       </div>
 
-      {/* Floating particles */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(20)].map((_, i) => (
           <div
@@ -81,7 +73,7 @@ const LoginPage = () => {
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${3 + Math.random() * 2}s`
+              animationDuration: `${3 + Math.random() * 2}s`,
             }}
           />
         ))}
@@ -89,20 +81,11 @@ const LoginPage = () => {
 
       <div className="relative z-10 flex items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md">
-          {/* Glassmorphism card */}
           <div className="relative group">
-            {/* Card glow effect */}
             <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 rounded-3xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
-            
+
             <div className="relative bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl p-8">
-              {/* Header */}
               <div className="text-center mb-8">
-                <div className="relative inline-flex items-center justify-center w-20 h-20 mb-6">
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-lg opacity-50 animate-pulse"></div>
-                  <div className="relative bg-gradient-to-r from-purple-500 to-pink-500 rounded-full p-4 shadow-lg">
-                    <SparklesIcon className="h-8 w-8 text-white" />
-                  </div>
-                </div>
                 <h2 className="text-3xl font-bold text-white mb-2">
                   Welcome Back
                 </h2>
@@ -110,12 +93,14 @@ const LoginPage = () => {
                   Sign in to your account to continue
                 </p>
               </div>
-              
-              {/* Form */}
+
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Login field */}
                 <div className="relative group">
-                  <div className={`absolute inset-0 bg-gradient-to-r from-purple-500/50 to-pink-500/50 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-300 ${isFocused.login ? 'opacity-100' : ''}`}></div>
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-r from-purple-500/50 to-pink-500/50 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-300 ${
+                      isFocused.login ? "opacity-100" : ""
+                    }`}
+                  ></div>
                   <div className="relative">
                     <input
                       id="login"
@@ -126,8 +111,12 @@ const LoginPage = () => {
                       placeholder="Enter your login"
                       value={formData.login}
                       onChange={handleInputChange}
-                      onFocus={() => setIsFocused({ ...isFocused, login: true })}
-                      onBlur={() => setIsFocused({ ...isFocused, login: false })}
+                      onFocus={() =>
+                        setIsFocused({ ...isFocused, login: true })
+                      }
+                      onBlur={() =>
+                        setIsFocused({ ...isFocused, login: false })
+                      }
                     />
                     <div className="absolute inset-y-0 right-0 pr-4 flex items-center">
                       <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
@@ -135,21 +124,28 @@ const LoginPage = () => {
                   </div>
                 </div>
 
-                {/* Password field */}
                 <div className="relative group">
-                  <div className={`absolute inset-0 bg-gradient-to-r from-purple-500/50 to-pink-500/50 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-300 ${isFocused.password ? 'opacity-100' : ''}`}></div>
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-r from-purple-500/50 to-pink-500/50 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-300 ${
+                      isFocused.password ? "opacity-100" : ""
+                    }`}
+                  ></div>
                   <div className="relative">
                     <input
                       id="password"
                       name="password"
-                      type={showPassword ? 'text' : 'password'}
+                      type={showPassword ? "text" : "password"}
                       required
                       className="w-full px-6 py-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl text-white placeholder-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 pr-12"
                       placeholder="Enter your password"
                       value={formData.password}
                       onChange={handleInputChange}
-                      onFocus={() => setIsFocused({ ...isFocused, password: true })}
-                      onBlur={() => setIsFocused({ ...isFocused, password: false })}
+                      onFocus={() =>
+                        setIsFocused({ ...isFocused, password: true })
+                      }
+                      onBlur={() =>
+                        setIsFocused({ ...isFocused, password: false })
+                      }
                     />
                     <button
                       type="button"
@@ -165,7 +161,6 @@ const LoginPage = () => {
                   </div>
                 </div>
 
-                {/* Submit button */}
                 <button
                   type="submit"
                   disabled={loading}
@@ -188,12 +183,11 @@ const LoginPage = () => {
                 </button>
               </form>
 
-              {/* Register link */}
               <div className="mt-8 text-center">
                 <p className="text-purple-200">
-                  Don't have an account?{' '}
-                  <Link 
-                    to="/register" 
+                  Don't have an account?{" "}
+                  <Link
+                    to="/register"
                     className="font-semibold text-white hover:text-purple-300 transition-colors duration-200 underline decoration-purple-400 underline-offset-4 hover:decoration-purple-300"
                   >
                     Create one now
@@ -216,4 +210,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage; 
+export default LoginPage;

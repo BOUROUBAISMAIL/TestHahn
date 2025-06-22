@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { createLoginUseCase } from '../../domain/handleAuth/LoginUseCase.js';
-import { createRegisterUseCase } from '../../domain/handleAuth/RegisterUseCase.js';
-import { createAuthRepositoryImpl } from '../../data/repositories/AuthRepositoryImpl.js';
-import { getUser, isAuthenticated } from '../../core/storage/SessionStorage.js';
+import { createLoginUseCase } from '../../../domain/handleAuth/LoginUseCase.js';
+import { createRegisterUseCase } from '../../../domain/handleAuth/RegisterUseCase.js';
+import { createAuthRepositoryImpl } from '../../../data/repositories/AuthRepositoryImpl.js';
+import { getUser, isAuthenticated } from '../../../core/storage/SessionStorage.js';
 
 export const useAuth = () => {
   const [user, setUser] = useState(null);

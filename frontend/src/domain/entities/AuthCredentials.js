@@ -1,4 +1,3 @@
-// AuthCredentials as function-based factory functions
 export const createAuthCredentials = (login, password) => ({
   login,
   password
