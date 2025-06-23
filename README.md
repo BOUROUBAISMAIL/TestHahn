@@ -34,12 +34,16 @@ This project is a **CRUD-based Student Management System** that implements **JWT
 ```bash
 This will:
 
-### Start a PostgreSQL database container
+### ✅ Start a PostgreSQL database container
 
-- Expose it on port 5434 You can access the database: Using a DB UI (like pgAdmin) at http://localhost:5050
+- Expose it on port `5434`
+- You can access the database using a DB UI (like **pgAdmin**) at [http://localhost:5050](http://localhost:5050)
+- Or manually connect to `localhost:5434` and create a database named `HahnStudents`
 
-- Or manually connect to localhost:5434 and create a database named HahnStudents
 
-# the architecture of the app is like this :
+## 🗂️ Architecture
 
-    ![Alt text](./archi.JPG "Optional title")
+The architecture of the app is like this:
+
+![Application Architecture](./archi.JPG "App Architecture Diagram")
+
