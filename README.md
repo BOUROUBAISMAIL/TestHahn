@@ -29,9 +29,14 @@ This project is a **CRUD-based Student Management System** that implements **JWT
 - Docker & Docker Compose
 - Node.js & npm (for running the React app)
 
-### 1. Run the Database
+## 🗂️ Architecture
 
+![System Architecture](./archi.JPG)
+
+### 1. Run the Database
 ```bash
+docker compose up -d
+
 This will:
 
 ### ✅ Start a PostgreSQL database container
@@ -41,9 +46,4 @@ This will:
 - Or manually connect to `localhost:5434` and create a database named `HahnStudents`
 
 
-## 🗂️ Architecture
-
-The architecture of the app is like this:
-
-![Application Architecture](./archi.JPG "App Architecture Diagram")
 
